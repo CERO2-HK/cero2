@@ -34,6 +34,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  page_transition: ^2.0.5
+  shared_preferences: ^2.0.13
+  device_info_plus: ^3.2.2
+  flutter_secure_storage: ^5.0.2
+  provider: ^6.0.2
+  get_it: ^7.2.0
+  stacked: ^2.3.0
+  stacked_services: ^0.8.17
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -57,13 +66,29 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/icon/
-    - assets/img/
+    - assets/icons/
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Quicksand-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Quicksand-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Quicksand-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Quicksand-Bold.ttf
+          weight: 700
+
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/launcher_icon.png"
+  image_path: "assets/images/launcher_icon.png"
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
