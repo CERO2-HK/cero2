@@ -241,7 +241,7 @@ class ChallengesView extends StatelessWidget {
           height: Global.s(12),
         ),
         SizedBox(
-          height: Global.s(224),
+          height: Global.s(232),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
