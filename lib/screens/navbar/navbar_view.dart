@@ -1,3 +1,4 @@
+import 'package:cero2/screens/challenges/challenges_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
@@ -10,7 +11,7 @@ class NavbarView extends StatelessWidget {
   NavbarView({Key? key}) : super(key: key);
 
   final EdgeInsets iconMargin =
-      EdgeInsets.only(top: Global.s(8), bottom: Global.s(2));
+      EdgeInsets.only(top: Global.s(6), bottom: Global.s(2));
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class NavbarView extends StatelessWidget {
   Widget getViewForIndex(int index) {
     switch (index) {
       case 0:
-        return Container();
+        return ChallengesView();
       case 1:
         return Container();
       case 2:
