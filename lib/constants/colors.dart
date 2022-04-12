@@ -12,4 +12,5 @@ class AppColor {
   static Color light = const Color(0xffF6F6F8);
   static Color dark = const Color(0xff323337);
   static Color white = Colors.white;
+  static Color red = const Color(0xffF95141);
 }
