@@ -1,4 +1,5 @@
 import 'package:cero2/screens/challenges/challenges_view.dart';
+import 'package:cero2/screens/home/home_view.dart';
 import 'package:cero2/screens/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -120,7 +121,7 @@ class NavbarView extends StatelessWidget {
       case 1:
         return Container();
       case 2:
-        return Container();
+        return HomeView();
       case 3:
         return Container();
       case 4:
