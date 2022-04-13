@@ -1,5 +1,8 @@
 import 'package:cero2/constants/colors.dart';
+import 'package:cero2/locator.dart';
+import 'package:cero2/routing/route_names.dart';
 import 'package:cero2/services/global_service.dart';
+import 'package:cero2/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
@@ -53,12 +56,17 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               Center(
-                child: Container(
-                  width: Global.screenWidth,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/home_map.png"),
-                        fit: BoxFit.fitWidth),
+                child: GestureDetector(
+                  onTap: () {
+                    locator<NavigationService>().pushNamed(RouteNames.mapRoute);
+                  },
+                  child: Container(
+                    width: Global.screenWidth,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/home_map.png"),
+                          fit: BoxFit.fitWidth),
+                    ),
                   ),
                 ),
               )

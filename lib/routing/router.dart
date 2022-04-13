@@ -1,5 +1,6 @@
 import 'package:cero2/models/challenge.dart';
 import 'package:cero2/screens/challenge/challenge_view.dart';
+import 'package:cero2/screens/map/map_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
@@ -21,6 +22,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             challenge: challenge,
           ),
           PageTransitionType.rightToLeft);
+    case RouteNames.mapRoute:
+      return _getPageRoute(MapView(), PageTransitionType.rightToLeft);
     default:
       return _getPageRoute(SplashView(), PageTransitionType.fade);
   }

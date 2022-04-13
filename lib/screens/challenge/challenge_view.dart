@@ -7,6 +7,7 @@ import 'package:cero2/services/user_service.dart';
 import 'package:cero2/widgets/current_challenge_banner.dart';
 import 'package:cero2/widgets/flat_button.dart';
 import 'package:cero2/widgets/icon_button.dart';
+import 'package:cero2/widgets/light_appbar.dart';
 import 'package:cero2/widgets/new_challenge_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,45 +31,7 @@ class ChallengeView extends StatelessWidget {
         Widget? child,
       ) {
         return Scaffold(
-          appBar: PreferredSize(
-            preferredSize:
-                Size.fromHeight(Global.s(56)), // here the desired height
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: AppColor.white,
-              centerTitle: true,
-              elevation: 0,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AppIconButton(
-                    onclick: () {
-                      locator<NavigationService>().pop();
-                    },
-                  ),
-                  Text(
-                    "Challenge",
-                    style: GoogleFonts.beVietnamPro(
-                      fontSize: Global.s(16),
-                      height: 1.5,
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.black,
-                    ),
-                  ),
-                  Container(
-                    width: Global.s(32),
-                  )
-                ],
-              ),
-              bottom: PreferredSize(
-                  child: Container(
-                    color: AppColor.black,
-                    height: Global.s(2),
-                  ),
-                  preferredSize: Size.fromHeight(Global.s(2))),
-            ),
-          ),
+          appBar: LightAppBar(title: "Challenge"),
           body: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
