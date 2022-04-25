@@ -1,6 +1,8 @@
 import 'package:cero2/models/challenge.dart';
+import 'package:cero2/models/shop.dart';
 import 'package:cero2/screens/challenge/challenge_view.dart';
 import 'package:cero2/screens/map/map_view.dart';
+import 'package:cero2/screens/shop/shop_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,6 +26,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           PageTransitionType.rightToLeft);
     case RouteNames.mapRoute:
       return _getPageRoute(MapView(), PageTransitionType.rightToLeft);
+    case RouteNames.shopRoute:
+      Shop shop = settings.arguments as Shop;
+      return _getPageRoute(
+          ShopView(
+            shop: shop,
+          ),
+          PageTransitionType.rightToLeft);
     default:
       return _getPageRoute(SplashView(), PageTransitionType.fade);
   }
