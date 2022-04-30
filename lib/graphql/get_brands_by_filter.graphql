@@ -1,0 +1,42 @@
+query getBrandsByFilter($brandFilterInput: BrandFilterInput) {
+  brandsGet(brandFilterInput: $brandFilterInput) {
+    isSuccess
+    code
+    errorMessage
+    data {
+      id
+      title
+      description
+      catergoryId
+      logo {
+        ...photoDetail
+      }
+      banner {
+        ...photoDetail
+      }
+      defaultCashback
+      defaultCashback
+      category {
+        id
+        name
+      }
+      stores {
+        id
+        subtitle
+        storeType
+      }
+      createAt
+      updateAt
+    }
+  }
+}
+
+fragment photoDetail on PhotoAttachment {
+  attachmentFileType
+  fileURL
+  fileName
+  filePath
+  contentType
+  originalFileName
+  size
+}

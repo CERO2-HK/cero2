@@ -1,0 +1,506 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+type Article implements Node {
+  id: ID!
+  title: String!
+  mainImage: PhotoAttachment
+  description: String
+  articleCategoryId: ID!
+  articleCategory: ArticleCategory!
+  content: String!
+  brandIds: [ID!]!
+  brands: [Brand!]!
+  storeIds: [ID!]!
+  stores: [Store!]!
+  createAt: DateTime!
+  updateAt: DateTime!
+}
+
+type ArticleArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [Article!]
+}
+
+type ArticleCategory implements Node {
+  id: ID!
+  name: String!
+  logo: PhotoAttachment
+  articles: [Article!]!
+  createAt: DateTime!
+  updateAt: DateTime!
+}
+
+type ArticleCategoryArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [ArticleCategory!]
+}
+
+input ArticleCategoryCreateInput {
+  name: String!
+  logo: PhotoAttachmentCreateInput
+}
+
+input ArticleCategoryFilterInput {
+  articleCategoryIds: [ID!] = null
+}
+
+type ArticleCategoryOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: ArticleCategory
+}
+
+input ArticleCreateInput {
+  title: String!
+  description: String
+  articleCategoryId: ID!
+  content: String!
+  mainImage: PhotoAttachmentCreateInput
+  brandIds: [ID!] = null
+  storeIds: [ID!] = null
+}
+
+input ArticleFilterInput {
+  articleIds: [ID!] = null
+  articleCategoryId: ID = null
+  brandIds: [ID!] = null
+  storeIds: [ID!] = null
+}
+
+type ArticleOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: Article
+}
+
+interface AttachmentGQLType {
+  attachmentFileType: AttachmentTypes!
+}
+
+"""The supported Attachment types"""
+enum AttachmentTypes {
+  PHOTO
+  VIDEO
+  AUDIO
+  LINK
+  ICON
+}
+
+type AuthFirebaseLoginOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: String
+}
+
+type AuthFirebaseRegisterOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: User
+}
+
+type AuthTokenRefreshOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: String
+}
+
+"""BigNumber custom scalar type"""
+scalar BigNumber
+
+type Brand implements Node {
+  id: ID!
+  title: String!
+  description: String
+  catergoryId: ID!
+  logo: PhotoAttachment
+  banner: PhotoAttachment
+  defaultCashback: String!
+  defaultCoinBack: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  category: Category!
+  stores: [Store!]!
+}
+
+type BrandArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [Brand!]
+}
+
+input BrandCreateInput {
+  title: String!
+  description: String
+  catergoryId: ID!
+  defaultCashback: BigNumber!
+  defaultCoinBack: BigNumber!
+  logo: PhotoAttachmentCreateInput
+  banner: PhotoAttachmentCreateInput
+}
+
+input BrandFilterInput {
+  brandIds: [ID!] = null
+  catergoryId: ID
+  categoryIds: [ID!] = null
+}
+
+type BrandOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: Brand
+}
+
+type Category implements Node {
+  id: ID!
+  name: String!
+  logo: PhotoAttachment
+  brands: [Brand!]!
+  createAt: DateTime!
+  updateAt: DateTime!
+}
+
+type CategoryArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [Category!]
+}
+
+input CategoryCreateInput {
+  name: String!
+  logo: PhotoAttachmentCreateInput
+}
+
+input CategoryFilterInput {
+  categoryIds: [ID!] = null
+}
+
+type CategoryOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: Category
+}
+
+input CoordinateCreateInput {
+  latitude: Float!
+  longitude: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DefaultResponseFormatOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+}
+
+input EmailUserRegisterCreateInput {
+  email: String!
+  password: String!
+  displayName: String!
+}
+
+type EventToken {
+  id: ID!
+  token: String!
+  tokenOwnerId: ID!
+  event: EventTokenTypes!
+  status: EventTokenStatus!
+  createAt: DateTime!
+  updateAt: DateTime!
+  expireAt: DateTime
+}
+
+input EventTokenArrayFilterInput {
+  eventTokenIds: [ID!] = null
+  tokenOwnerId: String
+  event: [EventTokenTypes!] = null
+  status: [EventTokenStatus!] = null
+  expireFrom: DateTime = null
+  expireTo: DateTime = null
+  isValid: Boolean = null
+}
+
+type EventTokenArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [EventToken!]
+}
+
+type EventTokenOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: EventToken
+}
+
+"""The supported Event Token Status"""
+enum EventTokenStatus {
+  ACTIVE
+  USED
+  DEACTIVE
+}
+
+"""The supported Event Token types"""
+enum EventTokenTypes {
+  OTP
+  SOCIETY_INVITE_CODE
+}
+
+input FirebaseUserLoginInput {
+  firebaseToken: String!
+}
+
+input FirebaseUserRegisterInput {
+  firebaseToken: String!
+}
+
+type Geometry {
+  type: GeometryTypes!
+  coordinates: [String!]!
+}
+
+"""The supported GeometryTypes"""
+enum GeometryTypes {
+  POINT
+}
+
+input MFAOTPCreateInput {
+  email: String!
+}
+
+type Mutation {
+  emailUserRegister(emailUserRegisterCreateInput: EmailUserRegisterCreateInput!): AuthFirebaseRegisterOutput!
+  firebaseUserRegister(firebaseUserRegisterInput: FirebaseUserRegisterInput!): AuthFirebaseRegisterOutput!
+  firebaseUserLogin(firebaseUserLoginInput: FirebaseUserLoginInput!): AuthFirebaseLoginOutput!
+  firebaseUserRemove: AuthFirebaseRegisterOutput!
+  tokenRefresh: AuthTokenRefreshOutput!
+  devUserLogin(email: String!): AuthFirebaseLoginOutput!
+  mfaOTPCreate(mfaOTPCreateInput: MFAOTPCreateInput!): EventTokenOutput!
+  mfaOTPVerify(otpId: String!, otpToken: String!): DefaultResponseFormatOutput!
+  mfaOTPVerifyInHeader: DefaultResponseFormatOutput!
+  userProfileUpdateById(userProfileUpdateInput: UserProfileUpdateInput!): UserProfileOutput!
+  smBrandCreate(brandCreateInput: BrandCreateInput!): BrandOutput!
+  smCategoryCreate(categoryCreateInput: CategoryCreateInput!): CategoryOutput!
+  smStoreCreate(storeCreateInput: StoreCreateInput!): StoreOutput!
+  pmArticleCategoryCreate(articleCategoryCreateInput: ArticleCategoryCreateInput!): ArticleCategoryOutput!
+  pmArticleCreate(articleCreateInput: ArticleCreateInput!): ArticleOutput!
+}
+
+interface Node {
+  id: ID!
+}
+
+type PhotoAttachment implements AttachmentGQLType {
+  attachmentFileType: AttachmentTypes!
+  size: Float!
+  fileURL: String!
+  fileName: String!
+  filePath: String!
+  contentType: String!
+  originalFileName: String!
+}
+
+input PhotoAttachmentCreateInput {
+  attachmentFileType: AttachmentTypes!
+  size: Float!
+  fileURL: String!
+  fileName: String!
+  filePath: String!
+  contentType: String!
+  originalFileName: String!
+}
+
+type Query {
+  me: UserSafe!
+  userGet(userFilterInput: UserFilterInput!): UserSafeOutput
+  usersGet(userArrayFilterInput: UserArrayFilterInput): UserSafeArrayOutput
+  userProfilesGet(userProfileFilterInput: UserProfileFilterInput = null): UserProfileArrayOutput!
+  userProfileGet(id: String!): UserProfileOutput
+  eventTokensGet(eventTokenArrayFilterInput: EventTokenArrayFilterInput = null): EventTokenArrayOutput!
+  eventTokenGet(id: String!): EventTokenOutput
+  categorysGet(categoryFilterInput: CategoryFilterInput): CategoryArrayOutput!
+  categoryGet(id: String!): CategoryOutput
+  hello: BigNumber!
+  brandsGet(brandFilterInput: BrandFilterInput): BrandArrayOutput!
+  brandGet(id: String!): BrandOutput
+  storesGet(storeFilterInput: StoreFilterInput): StoreArrayOutput!
+  storeGet(id: String!): StoreOutput
+  articleCategorysGet(articleCategoryFilterInput: ArticleCategoryFilterInput): ArticleCategoryArrayOutput!
+  articleCategoryGet(id: String!): ArticleCategoryOutput
+  articlesGet(articleFilterInput: ArticleFilterInput): ArticleArrayOutput!
+  articleGet(id: String!): ArticleOutput
+}
+
+interface ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+}
+
+type Store implements Node {
+  id: ID!
+  brandId: ID!
+  storeType: StoreTypes!
+  subtitle: String!
+  url: String
+  address: String
+  geometry: Geometry
+  openHour: String
+  createAt: DateTime!
+  updateAt: DateTime!
+}
+
+type StoreArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [Store!]
+}
+
+input StoreCreateInput {
+  brandId: ID!
+  storeType: StoreTypes!
+  subtitle: String!
+  url: String
+  openHour: String
+  address: String
+  coordinate: CoordinateCreateInput
+}
+
+input StoreFilterInput {
+  storeIds: [ID!] = null
+  brandIds: [ID!] = null
+  brandId: ID
+}
+
+type StoreOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: Store
+}
+
+"""The supported store types"""
+enum StoreTypes {
+  ONLINE
+  OFFLINE
+  ROADSHOW
+}
+
+type User {
+  id: ID!
+  email: String!
+  firebaseUID: String!
+  roles: [UserRole!]!
+  userProfile: UserProfile
+  mfaSecret: String
+  createAt: DateTime!
+  updateAt: DateTime!
+}
+
+input UserArrayFilterInput {
+  userIDs: [ID!] = null
+  role: [UserRole!] = null
+  status: [UserStatus!] = null
+  isEnableMFA: Boolean
+}
+
+input UserFilterInput {
+  userID: ID = null
+  email: String = null
+  firebaseUID: String = null
+}
+
+type UserProfile {
+  userId: ID
+  nickName: String
+  profilePic: PhotoAttachment
+  createAt: DateTime!
+  updateAt: DateTime!
+}
+
+type UserProfileArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [UserProfile!]
+}
+
+input UserProfileFilterInput {
+  userProfileIds: [ID!] = null
+}
+
+type UserProfileOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: UserProfile
+}
+
+input UserProfileUpdateInput {
+  userId: ID!
+  nickName: String
+  profilePic: PhotoAttachmentCreateInput
+
+  """clear photo with this = true"""
+  isClearProfilePic: Boolean = false
+}
+
+"""The supported User Roles"""
+enum UserRole {
+  ADMIN
+  NORMAL
+}
+
+type UserSafe {
+  id: ID!
+  email: String!
+  roles: [UserRole!]!
+  status: UserStatus!
+  userProfile: UserProfile
+  createAt: DateTime!
+  updateAt: DateTime!
+}
+
+type UserSafeArrayOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: [UserSafe!]
+}
+
+type UserSafeOutput implements ResponseFormat {
+  isSuccess: Boolean!
+  code: Float!
+  errorMessage: String
+  data: UserSafe
+}
+
+"""The supported User Status"""
+enum UserStatus {
+  INVITED
+  ACTIVE
+  DEACTIVE
+}
+

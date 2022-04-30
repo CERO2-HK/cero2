@@ -5,7 +5,8 @@ class NavigationService {
 
   @override
   Future<dynamic> pushNamed(String routeName, {Object? arguments}) {
-    return navigatorKey.currentState!.pushNamed(routeName, arguments: arguments);
+    return navigatorKey.currentState!
+        .pushNamed(routeName, arguments: arguments);
   }
 
   @override

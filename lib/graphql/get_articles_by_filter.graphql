@@ -1,0 +1,39 @@
+query getArticlesByFilter($articleFilterInput: ArticleFilterInput) {
+  articlesGet(articleFilterInput: $articleFilterInput) {
+    isSuccess
+    code
+    errorMessage
+    data {
+      id
+      title
+      description
+      content
+      mainImage {
+        ...photoDetail
+      }
+      articleCategoryId
+      articleCategory {
+        id
+        name
+      }
+      brands {
+        id
+        title
+      }
+      stores {
+        id
+        subtitle
+      }
+    }
+  }
+}
+
+fragment photoDetail on PhotoAttachment {
+  attachmentFileType
+  fileURL
+  fileName
+  filePath
+  contentType
+  originalFileName
+  size
+}

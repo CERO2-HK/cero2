@@ -8,6 +8,8 @@ class ChallengesViewModel extends FutureViewModel {
 
   @override
   Future<void> futureToRun() async {
+    await ApiService().initClient;
+    await ApiService().getCategoriesByFilter();
     currentChallenges = await ApiService().getCurrentChallenges();
     newChallenges = await ApiService().getNewChallenges();
     notifyListeners();

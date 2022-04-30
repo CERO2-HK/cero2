@@ -1,32 +1,47 @@
+import 'package:built_collection/src/list.dart';
 import 'package:cero2/constants/system_config.dart';
+import 'package:cero2/graphql/__generated__/get_categories_by_filter.req.gql.dart';
 import 'package:cero2/models/challenge.dart';
+import 'package:ferry/ferry.dart';
+import 'package:ferry_hive_store/ferry_hive_store.dart';
+import 'package:gql_http_link/gql_http_link.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  Map<String, String> get header => {
-        "Content-Type": "application/json",
-        "authorization":
-            "Bearer eyJhbGciOiJIUzI1NiIsInR2cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjJ4.PqoLrtSFn6bSxthHfQ8LcywIiCH_JABWii3ZbRGjE7I"
-      };
+  static const String url = "https://cero2-dev.herokuapp.com/graphql";
+  late final Client client;
 
-  String encodeMap(Map data) {
-    return data.keys
-        .map((key) =>
-            "${Uri.encodeComponent(key)}=${Uri.encodeComponent(data[key] != null ? data[key].toString() : "")}")
-        .join("&");
+  ApiService() {
+    initClient();
   }
 
-  String encodeUrl(String path, Map<String, dynamic>? queryParams) {
-    String queryParamsString =
-        queryParams == null ? "" : ("?" + encodeMap(queryParams));
-    return SystemConfig.apiEndpoint + path + queryParamsString;
-  }
+  Future<void> initClient() async {
+    // Hive.init('hive_data');
 
-  Future<http.Response> get(String path, Map<String, dynamic> queryParams) {
-    return http.get(
-      Uri.parse(encodeUrl(path, queryParams)),
-      headers: header,
+    // final box = await Hive.openBox("graphql");
+
+    // final store = HiveStore(box);
+
+    // final cache = Cache(store: store);
+
+    final link = HttpLink(url);
+
+    client = Client(
+      link: link,
+      // cache: cache,
     );
+  }
+
+  Future getCategoriesByFilter() async {
+    final req = GgetCategoriesByFilterReq(((b) => b
+      ..vars.categoryFilterInput.categoryIds =
+          ListBuilder(["9ea2d125-25e8-4190-8637-08efbfcc550a"])));
+    client.request(req).listen((response) {
+      response.data?.categorysGet.data?.forEach((p0) {
+        print(p0.name);
+      });
+    });
   }
 
   Future<List<Challenge>> getCurrentChallenges() async {

@@ -1,0 +1,27 @@
+query getCategoriesByFilter($categoryFilterInput: CategoryFilterInput) {
+  categorysGet(categoryFilterInput: $categoryFilterInput) {
+    isSuccess
+    code
+    errorMessage
+    data {
+      id
+      name
+      logo{
+        ...photoDetail
+      }
+      brands{
+        id
+        title
+      }
+    }
+  }
+}
+fragment photoDetail on PhotoAttachment {
+  attachmentFileType
+  fileURL
+  fileName
+  filePath
+  contentType
+  originalFileName
+  size
+}

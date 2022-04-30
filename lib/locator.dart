@@ -9,5 +9,5 @@ void setupLocator() {
 //  e.g. locator.registerFactory<LoginService>(() => LoginService());
 //  locator.registerFactory<HomeViewModel>(() => HomeViewModel());
   locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => ApiService());
+  locator.registerSingleton(() => ApiService());
 }
